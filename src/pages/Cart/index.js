@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { TouchableOpacity } from 'react-native';
 
 import {
   Container,
@@ -87,17 +88,27 @@ export default class Cart extends Component {
                     <ProductTitle>{item.title}</ProductTitle>
                     <ProductPrice>{item.price}</ProductPrice>
                   </ProductTexts>
-                  <Icon name="delete-forever" size={24} color="#27ae60" />
+                  <TouchableOpacity>
+                    <Icon name="delete-forever" size={24} color="#27ae60" />
+                  </TouchableOpacity>
                 </ProductInfo>
                 <ProductCount>
                   <CountBox>
-                    <Icon
-                      name="remove-circle-outline"
-                      size={20}
-                      color="#27ae60"
-                    />
+                    <TouchableOpacity>
+                      <Icon
+                        name="remove-circle-outline"
+                        size={20}
+                        color="#27ae60"
+                      />
+                    </TouchableOpacity>
                     <InputCount editable={false} value="3" />
-                    <Icon name="add-circle-outline" size={20} color="#27ae60" />
+                    <TouchableOpacity>
+                      <Icon
+                        name="add-circle-outline"
+                        size={20}
+                        color="#27ae60"
+                      />
+                    </TouchableOpacity>
                   </CountBox>
                   <SubtotalPrice>R$539,70</SubtotalPrice>
                 </ProductCount>

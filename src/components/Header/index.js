@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { TouchableOpacity } from 'react-native';
 
 import logo from '../../assets/images/logo.png';
 
@@ -14,13 +15,17 @@ import {
 export default function Header() {
   return (
     <Container>
-      <Logo source={logo} />
-      <CartContainer>
-        <Icon name="shopping-cart" size={20} color="#efefef" />
-        <CartCount>
-          <CartCountText>3</CartCountText>
-        </CartCount>
-      </CartContainer>
+      <TouchableOpacity activeOpacity={0.6}>
+        <Logo source={logo} />
+      </TouchableOpacity>
+      <TouchableOpacity activeOpacity={0.6}>
+        <CartContainer>
+          <Icon name="shopping-cart" size={20} color="#efefef" />
+          <CartCount>
+            <CartCountText>3</CartCountText>
+          </CartCount>
+        </CartContainer>
+      </TouchableOpacity>
     </Container>
   );
 }
