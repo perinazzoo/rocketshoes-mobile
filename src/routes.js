@@ -12,8 +12,8 @@ export default function Routes() {
   return (
     <NavigationContainer>
       <Navigator>
-        <Screen name="Home" component={Home} options={{ headerShown: false }} />
-        <Screen name="Cart" component={Cart} />
+        <Screen name="Home" component={Cart} options={{ headerShown: false }} />
+        <Screen name="Cart" component={Home} options={{ headerShown: false }} />
       </Navigator>
     </NavigationContainer>
   );

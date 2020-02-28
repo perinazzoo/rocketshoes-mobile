@@ -20,6 +20,7 @@ export const ProductContainer = styled.View`
   padding: 10px;
   background-color: #fff;
   margin-left: 15px;
+  border-radius: 5px;
 `;
 
 export const ProductImage = styled.Image`
