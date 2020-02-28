@@ -25,15 +25,14 @@ export const List = styled.FlatList`
 export const Item = styled.View`
   width: 305px;
   min-height: 130px;
-  border: 1px solid #eee;
   margin-bottom: 20px;
-  border-radius: 4px;
 `;
 
 export const ProductInfo = styled.View`
   width: 100%;
   height: 90px;
   flex-direction: row;
+  align-items: center;
 `;
 
 export const ProductImage = styled.Image`
@@ -45,7 +44,7 @@ export const ProductTexts = styled.View`
   margin-top: 10px;
   margin-left: 10px;
   width: 163px;
-  height: 60px;
+  margin-right: 28px;
 `;
 
 export const ProductTitle = styled.Text`

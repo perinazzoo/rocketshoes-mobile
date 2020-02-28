@@ -87,6 +87,7 @@ export default class Cart extends Component {
                     <ProductTitle>{item.title}</ProductTitle>
                     <ProductPrice>{item.price}</ProductPrice>
                   </ProductTexts>
+                  <Icon name="delete-forever" size={24} color="#27ae60" />
                 </ProductInfo>
                 <ProductCount>
                   <CountBox>
