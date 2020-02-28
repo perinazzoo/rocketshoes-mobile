@@ -21,6 +21,7 @@ import {
   TotalPrice,
   SubmitButton,
   SubmitButtonText,
+  AmountButtons,
 } from './styles';
 
 export default class Cart extends Component {
@@ -95,19 +96,23 @@ export default class Cart extends Component {
                 <ProductCount>
                   <CountBox>
                     <TouchableOpacity>
-                      <Icon
-                        name="remove-circle-outline"
-                        size={20}
-                        color="#27ae60"
-                      />
+                      <AmountButtons>
+                        <Icon
+                          name="remove-circle-outline"
+                          size={20}
+                          color="#27ae60"
+                        />
+                      </AmountButtons>
                     </TouchableOpacity>
                     <InputCount editable={false} value="3" />
                     <TouchableOpacity>
-                      <Icon
-                        name="add-circle-outline"
-                        size={20}
-                        color="#27ae60"
-                      />
+                      <AmountButtons>
+                        <Icon
+                          name="add-circle-outline"
+                          size={20}
+                          color="#27ae60"
+                        />
+                      </AmountButtons>
                     </TouchableOpacity>
                   </CountBox>
                   <SubtotalPrice>R$539,70</SubtotalPrice>

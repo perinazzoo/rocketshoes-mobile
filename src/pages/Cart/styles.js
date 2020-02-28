@@ -74,7 +74,11 @@ export const CountBox = styled.View`
 
   flex-direction: row;
   align-items: center;
-  margin-left: 10px;
+  margin-left: 5px;
+`;
+
+export const AmountButtons = styled.View`
+  padding: 5px;
 `;
 
 export const InputCount = styled.TextInput`
@@ -84,7 +88,6 @@ export const InputCount = styled.TextInput`
   padding: 5px;
   text-align: center;
   color: #666;
-  margin: 0 5px;
   font-size: 14px;
   border: 1px solid #ddd;
   border-radius: 4px;
