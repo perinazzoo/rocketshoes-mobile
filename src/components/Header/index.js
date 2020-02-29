@@ -2,6 +2,8 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { TouchableOpacity } from 'react-native';
 
+import { connect } from 'react-redux';
+
 import logo from '../../assets/images/logo.png';
 
 import {
@@ -12,7 +14,7 @@ import {
   CartCountText,
 } from './styles';
 
-export default function Header() {
+function Header({ cartAmount }) {
   return (
     <Container>
       <TouchableOpacity activeOpacity={0.6}>
@@ -22,10 +24,14 @@ export default function Header() {
         <CartContainer>
           <Icon name="shopping-cart" size={20} color="#efefef" />
           <CartCount>
-            <CartCountText>3</CartCountText>
+            <CartCountText>{cartAmount}</CartCountText>
           </CartCount>
         </CartContainer>
       </TouchableOpacity>
     </Container>
   );
 }
+
+export default connect(state => ({
+  cartAmount: state.cart.length,
+}))(Header);
