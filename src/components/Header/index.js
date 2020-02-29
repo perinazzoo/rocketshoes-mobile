@@ -14,13 +14,23 @@ import {
   CartCountText,
 } from './styles';
 
-function Header({ cartAmount }) {
+function Header({ cartAmount, navigation }) {
+  handleNavigate = page => {
+    navigation.navigate(page);
+  };
+
   return (
     <Container>
-      <TouchableOpacity activeOpacity={0.6}>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        onPress={() => handleNavigate('home')}
+      >
         <Logo source={logo} />
       </TouchableOpacity>
-      <TouchableOpacity activeOpacity={0.6}>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        onPress={() => handleNavigate('cart')}
+      >
         <CartContainer>
           <Icon name="shopping-cart" size={20} color="#efefef" />
           <CartCount>
