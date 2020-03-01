@@ -1,6 +1,7 @@
 import { call, put, all, takeLeading, select } from 'redux-saga/effects';
 import { Alert } from 'react-native';
 
+import * as RootNavigation from '../../../services/RootNavigation';
 import api from '../../../services/api';
 import { addToCartSuccess, updateAmountSuccess } from './actions';
 import { formatPrice } from '../../../util/format';
@@ -33,6 +34,7 @@ function* addToCart({ id }) {
     };
 
     yield put(addToCartSuccess(data));
+    RootNavigation.navigate('cart');
   }
 }
 
