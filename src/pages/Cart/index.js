@@ -63,24 +63,18 @@ function Cart({
                       <ProductTitle>{item.title}</ProductTitle>
                       <ProductPrice>{item.priceFormatted}</ProductPrice>
                     </ProductTexts>
-                    <TouchableOpacity>
-                      <Icon
-                        name="delete-forever"
-                        size={24}
-                        color="#27ae60"
-                        onPress={() => removeFromCart(item.id)}
-                      />
+                    <TouchableOpacity onPress={() => removeFromCart(item.id)}>
+                      <Icon name="delete-forever" size={24} color="#27ae60" />
                     </TouchableOpacity>
                   </ProductInfo>
                   <ProductCount>
                     <CountBox>
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={() => decrement(item)}>
                         <AmountButtons>
                           <Icon
                             name="remove-circle-outline"
                             size={24}
                             color="#27ae60"
-                            onPress={() => decrement(item)}
                           />
                         </AmountButtons>
                       </TouchableOpacity>
@@ -88,13 +82,12 @@ function Cart({
                         editable={false}
                         value={String(item.amount)}
                       />
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={() => increment(item)}>
                         <AmountButtons>
                           <Icon
                             name="add-circle-outline"
                             size={24}
                             color="#27ae60"
-                            onPress={() => increment(item)}
                           />
                         </AmountButtons>
                       </TouchableOpacity>
