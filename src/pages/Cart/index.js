@@ -29,13 +29,13 @@ import {
   AmountButtons,
 } from './styles';
 
-function Cart({ cart, removeFromCart, updateAmount, total }) {
+function Cart({ cart, removeFromCart, updateAmountRequest, total }) {
   function increment(item) {
-    updateAmount(item.id, item.amount + 1);
+    updateAmountRequest(item.id, item.amount + 1);
   }
 
   function decrement(item) {
-    updateAmount(item.id, item.amount - 1);
+    updateAmountRequest(item.id, item.amount - 1);
   }
 
   return (
