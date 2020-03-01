@@ -27,9 +27,17 @@ import {
   SubmitButton,
   SubmitButtonText,
   AmountButtons,
+  EmptyCart,
+  EmptyCartText,
 } from './styles';
 
-function Cart({ cart, removeFromCart, updateAmountRequest, total }) {
+function Cart({
+  cart,
+  removeFromCart,
+  updateAmountRequest,
+  total,
+  cartAmount,
+}) {
   function increment(item) {
     updateAmountRequest(item.id, item.amount + 1);
   }
@@ -41,63 +49,75 @@ function Cart({ cart, removeFromCart, updateAmountRequest, total }) {
   return (
     <Container>
       <CartContainer>
-        <List
-          showsVerticalScrollIndicator={false}
-          data={cart}
-          keyExtractor={c => c.title}
-          renderItem={({ item }) => (
-            <Item>
-              <ProductInfo>
-                <ProductImage source={{ uri: item.image }} />
-                <ProductTexts>
-                  <ProductTitle>{item.title}</ProductTitle>
-                  <ProductPrice>{item.priceFormatted}</ProductPrice>
-                </ProductTexts>
-                <TouchableOpacity>
-                  <Icon
-                    name="delete-forever"
-                    size={24}
-                    color="#27ae60"
-                    onPress={() => removeFromCart(item.id)}
-                  />
-                </TouchableOpacity>
-              </ProductInfo>
-              <ProductCount>
-                <CountBox>
-                  <TouchableOpacity>
-                    <AmountButtons>
+        {cartAmount > 0 ? (
+          <>
+            <List
+              showsVerticalScrollIndicator={false}
+              data={cart}
+              keyExtractor={c => c.title}
+              renderItem={({ item }) => (
+                <Item>
+                  <ProductInfo>
+                    <ProductImage source={{ uri: item.image }} />
+                    <ProductTexts>
+                      <ProductTitle>{item.title}</ProductTitle>
+                      <ProductPrice>{item.priceFormatted}</ProductPrice>
+                    </ProductTexts>
+                    <TouchableOpacity>
                       <Icon
-                        name="remove-circle-outline"
+                        name="delete-forever"
                         size={24}
                         color="#27ae60"
-                        onPress={() => decrement(item)}
+                        onPress={() => removeFromCart(item.id)}
                       />
-                    </AmountButtons>
-                  </TouchableOpacity>
-                  <InputCount editable={false} value={String(item.amount)} />
-                  <TouchableOpacity>
-                    <AmountButtons>
-                      <Icon
-                        name="add-circle-outline"
-                        size={24}
-                        color="#27ae60"
-                        onPress={() => increment(item)}
+                    </TouchableOpacity>
+                  </ProductInfo>
+                  <ProductCount>
+                    <CountBox>
+                      <TouchableOpacity>
+                        <AmountButtons>
+                          <Icon
+                            name="remove-circle-outline"
+                            size={24}
+                            color="#27ae60"
+                            onPress={() => decrement(item)}
+                          />
+                        </AmountButtons>
+                      </TouchableOpacity>
+                      <InputCount
+                        editable={false}
+                        value={String(item.amount)}
                       />
-                    </AmountButtons>
-                  </TouchableOpacity>
-                </CountBox>
-                <SubtotalPrice>{item.subTotal}</SubtotalPrice>
-              </ProductCount>
-            </Item>
+                      <TouchableOpacity>
+                        <AmountButtons>
+                          <Icon
+                            name="add-circle-outline"
+                            size={24}
+                            color="#27ae60"
+                            onPress={() => increment(item)}
+                          />
+                        </AmountButtons>
+                      </TouchableOpacity>
+                    </CountBox>
+                    <SubtotalPrice>{item.subTotal}</SubtotalPrice>
+                  </ProductCount>
+                </Item>
+              )}
+            />
+            <TotalBox>
+              <TotalLabel>TOTAL</TotalLabel>
+              <TotalPrice>{total}</TotalPrice>
+            </TotalBox>
+            <SubmitButton>
+              <SubmitButtonText>FINALIZAR PEDIDO</SubmitButtonText>
+            </SubmitButton>
+          </>
+        ) : (
+            <EmptyCart>
+              <EmptyCartText>Seu carrinho está vazio :(</EmptyCartText>
+              <Icon name="remove-shopping-cart" size={50} color="#ddd" />
+            </EmptyCart>
           )}
-        />
-        <TotalBox>
-          <TotalLabel>TOTAL</TotalLabel>
-          <TotalPrice>{total}</TotalPrice>
-        </TotalBox>
-        <SubmitButton>
-          <SubmitButtonText>FINALIZAR PEDIDO</SubmitButtonText>
-        </SubmitButton>
       </CartContainer>
     </Container>
   );
@@ -113,6 +133,7 @@ const mapStateToProps = state => ({
       return total + p.price * p.amount;
     }, 0)
   ),
+  cartAmount: state.cart.length,
 });
 
 const mapDispatchToProps = dispatch =>

@@ -129,3 +129,16 @@ export const SubmitButtonText = styled.Text`
   font-size: 14px;
   font-weight: bold;
 `;
+
+export const EmptyCart = styled.View`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const EmptyCartText = styled.Text`
+  color: #ccc;
+  font-size: 16px;
+`;
