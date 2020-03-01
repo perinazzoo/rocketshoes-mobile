@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as CartActions from '../../store/modules/cart/actions';
+import { formatPrice } from '../../util/format';
 
 import {
   Container,
@@ -28,7 +29,15 @@ import {
   AmountButtons,
 } from './styles';
 
-function Cart({ cart, removeFromCart }) {
+function Cart({ cart, removeFromCart, updateAmount, total }) {
+  function increment(item) {
+    updateAmount(item.id, item.amount + 1);
+  }
+
+  function decrement(item) {
+    updateAmount(item.id, item.amount - 1);
+  }
+
   return (
     <Container>
       <CartContainer>
@@ -42,7 +51,7 @@ function Cart({ cart, removeFromCart }) {
                 <ProductImage source={{ uri: item.image }} />
                 <ProductTexts>
                   <ProductTitle>{item.title}</ProductTitle>
-                  <ProductPrice>{item.price}</ProductPrice>
+                  <ProductPrice>{item.priceFormatted}</ProductPrice>
                 </ProductTexts>
                 <TouchableOpacity>
                   <Icon
@@ -59,8 +68,9 @@ function Cart({ cart, removeFromCart }) {
                     <AmountButtons>
                       <Icon
                         name="remove-circle-outline"
-                        size={20}
+                        size={24}
                         color="#27ae60"
+                        onPress={() => decrement(item)}
                       />
                     </AmountButtons>
                   </TouchableOpacity>
@@ -69,20 +79,21 @@ function Cart({ cart, removeFromCart }) {
                     <AmountButtons>
                       <Icon
                         name="add-circle-outline"
-                        size={20}
+                        size={24}
                         color="#27ae60"
+                        onPress={() => increment(item)}
                       />
                     </AmountButtons>
                   </TouchableOpacity>
                 </CountBox>
-                <SubtotalPrice>R$539,70</SubtotalPrice>
+                <SubtotalPrice>{item.subTotal}</SubtotalPrice>
               </ProductCount>
             </Item>
           )}
         />
         <TotalBox>
           <TotalLabel>TOTAL</TotalLabel>
-          <TotalPrice>R$ 1619,10</TotalPrice>
+          <TotalPrice>{total}</TotalPrice>
         </TotalBox>
         <SubmitButton>
           <SubmitButtonText>FINALIZAR PEDIDO</SubmitButtonText>
@@ -92,8 +103,16 @@ function Cart({ cart, removeFromCart }) {
   );
 }
 
-const mapStateToProps = ({ cart }) => ({
-  cart,
+const mapStateToProps = state => ({
+  cart: state.cart.map(p => ({
+    ...p,
+    subTotal: formatPrice(p.price * p.amount),
+  })),
+  total: formatPrice(
+    state.cart.reduce((total, p) => {
+      return total + p.price * p.amount;
+    }, 0)
+  ),
 });
 
 const mapDispatchToProps = dispatch =>
