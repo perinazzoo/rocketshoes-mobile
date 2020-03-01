@@ -12,7 +12,7 @@ export const Container = styled.View`
 export const CartContainer = styled.View`
   background-color: #fff;
   width: 335px;
-  height: 95%;
+  max-height: 95%;
   border-radius: 5px;
   padding: 22px 15px 10px;
   align-items: center;
