@@ -50,6 +50,14 @@ export const SubmitButton = styled(RectButton)`
   background-color: #27ae60;
   border-radius: 4px;
   align-items: center;
+
+  opacity: ${({ isloading }) => (isloading ? 0.4 : 1)};
+`;
+
+export const SubmitButtonLoading = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const CartButtonContainer = styled.View`

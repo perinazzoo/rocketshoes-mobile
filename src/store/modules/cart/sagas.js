@@ -4,9 +4,11 @@ import { Alert } from 'react-native';
 import * as RootNavigation from '../../../services/RootNavigation';
 import api from '../../../services/api';
 import { addToCartSuccess, updateAmountSuccess } from './actions';
+import { isLoading } from '../loading/actions';
 import { formatPrice } from '../../../util/format';
 
-function* addToCart({ id }) {
+function* addToCart({ id, index }) {
+  yield put(isLoading(true, index));
   const productExists = yield select(({ cart }) => cart.find(p => p.id === id));
 
   const stock = yield call(api.get, `/stock/${id}`);
@@ -19,6 +21,7 @@ function* addToCart({ id }) {
     Alert.alert('Oops!', 'Estoque esgotado 😔', [{ text: 'OK' }], {
       cancelable: true,
     });
+    yield put(isLoading(false, index));
     return;
   }
 
@@ -36,6 +39,7 @@ function* addToCart({ id }) {
     yield put(addToCartSuccess(data));
     RootNavigation.navigate('cart');
   }
+  yield put(isLoading(false, index));
 }
 
 function* updateAmount({ id, amount }) {

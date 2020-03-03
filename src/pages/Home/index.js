@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,6 +16,7 @@ import {
   ProductTitle,
   ProductPrice,
   SubmitButton,
+  SubmitButtonLoading,
   CartButtonContainer,
   CartCount,
   ButtonText,
@@ -38,15 +39,15 @@ class Home extends Component {
     this.setState({ products: data });
   }
 
-  handleAddProduct = id => {
-    const { addToCartRequest } = this.props;
+  handleAddProduct = (id, index) => {
+    const { addToCartRequest, isloading } = this.props;
 
-    addToCartRequest(id);
+    addToCartRequest(id, index);
   };
 
   render() {
     const { products } = this.state;
-    const { amount } = this.props;
+    const { amount, isloading } = this.props;
 
     return (
       <Container>
@@ -56,7 +57,7 @@ class Home extends Component {
             horizontal
             data={products}
             keyExtractor={product => product.title}
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
               <ProductContainer>
                 <ProductImage
                   source={{
@@ -65,12 +66,23 @@ class Home extends Component {
                 />
                 <ProductTitle>{item.title}</ProductTitle>
                 <ProductPrice>{item.priceFormatted}</ProductPrice>
-                <SubmitButton onPress={() => this.handleAddProduct(item.id)}>
-                  <CartButtonContainer>
-                    <Icon name="add-shopping-cart" size={16} color="#fff" />
-                    <CartCount>{amount[item.id] || 0}</CartCount>
-                  </CartButtonContainer>
-                  <ButtonText>Adicionar</ButtonText>
+                <SubmitButton
+                  isloading={isloading.state}
+                  onPress={() => this.handleAddProduct(item.id, index)}
+                >
+                  {isloading.index === index && isloading.state === true ? (
+                    <SubmitButtonLoading>
+                      <ActivityIndicator color="#fff" size={30} />
+                    </SubmitButtonLoading>
+                  ) : (
+                      <>
+                        <CartButtonContainer>
+                          <Icon name="add-shopping-cart" size={16} color="#fff" />
+                          <CartCount>{amount[item.id] || 0}</CartCount>
+                        </CartButtonContainer>
+                        <ButtonText>Adicionar</ButtonText>
+                      </>
+                    )}
                 </SubmitButton>
               </ProductContainer>
             )}
@@ -81,12 +93,13 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = ({ cart }) => ({
+const mapStateToProps = ({ cart, loading }) => ({
   amount: cart.reduce((amount, p) => {
     amount[p.id] = p.amount;
 
     return amount;
   }, {}),
+  isloading: loading,
 });
 
 const mapDispatchToProps = dispatch =>
