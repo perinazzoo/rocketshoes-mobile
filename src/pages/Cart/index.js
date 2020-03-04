@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import * as CartActions from '../../store/modules/cart/actions';
 import { formatPrice } from '../../util/format';
@@ -115,6 +116,14 @@ function Cart({
     </Container>
   );
 }
+
+Cart.propTypes = {
+  cart: PropTypes.arrayOf(Object).isRequired,
+  removeFromCart: PropTypes.func.isRequired,
+  updateAmountRequest: PropTypes.func.isRequired,
+  total: PropTypes.string.isRequired,
+  cartAmount: PropTypes.number.isRequired,
+};
 
 const mapStateToProps = state => ({
   cart: state.cart.map(p => ({

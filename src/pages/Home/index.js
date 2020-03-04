@@ -3,6 +3,7 @@ import { FlatList, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import * as CartActions from '../../store/modules/cart/actions';
 import api from '../../services/api';
@@ -40,7 +41,7 @@ class Home extends Component {
   }
 
   handleAddProduct = (id, index) => {
-    const { addToCartRequest, isloading } = this.props;
+    const { addToCartRequest } = this.props;
 
     addToCartRequest(id, index);
   };
@@ -92,6 +93,15 @@ class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  addToCartRequest: PropTypes.func.isRequired,
+  amount: PropTypes.objectOf(Number).isRequired,
+  isloading: PropTypes.shape({
+    index: PropTypes.number,
+    state: PropTypes.bool,
+  }).isRequired,
+};
 
 const mapStateToProps = ({ cart, loading }) => ({
   amount: cart.reduce((amount, p) => {

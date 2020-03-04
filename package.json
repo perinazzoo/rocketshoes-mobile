@@ -17,6 +17,7 @@
     "immer": "^5.3.6",
     "intl": "^1.2.5",
     "polished": "^3.4.4",
+    "prop-types": "^15.7.2",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-gesture-handler": "^1.6.0",

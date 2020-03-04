@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { TouchableOpacity } from 'react-native';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
@@ -15,7 +16,7 @@ import {
 } from './styles';
 
 function Header({ cartAmount, navigation }) {
-  handleNavigate = page => {
+  const handleNavigate = page => {
     navigation.navigate(page);
   };
 
@@ -41,6 +42,13 @@ function Header({ cartAmount, navigation }) {
     </Container>
   );
 }
+
+Header.propTypes = {
+  cartAmount: PropTypes.number.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
+};
 
 export default connect(state => ({
   cartAmount: state.cart.length,
