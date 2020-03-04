@@ -12,7 +12,7 @@ export const Container = styled.View`
 export const CartContainer = styled.View`
   background-color: #fff;
   width: 335px;
-  height: 95%;
+  max-height: 95%;
   border-radius: 5px;
   padding: 22px 15px 10px;
   align-items: center;
@@ -128,4 +128,17 @@ export const SubmitButtonText = styled.Text`
   color: #fff;
   font-size: 14px;
   font-weight: bold;
+`;
+
+export const EmptyCart = styled.View`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const EmptyCartText = styled.Text`
+  color: #ccc;
+  font-size: 16px;
 `;

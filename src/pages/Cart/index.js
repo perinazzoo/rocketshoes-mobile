@@ -1,6 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+
+import * as CartActions from '../../store/modules/cart/actions';
+import { formatPrice } from '../../util/format';
 
 import {
   Container,
@@ -22,113 +28,117 @@ import {
   SubmitButton,
   SubmitButtonText,
   AmountButtons,
+  EmptyCart,
+  EmptyCartText,
 } from './styles';
 
-export default class Cart extends Component {
-  // eslint-disable-next-line react/state-in-constructor
-  state = {
-    cart: [
-      {
-        id: 1,
-        title: 'Tênis de Caminhada Leve Confortável 1',
-        price: 179.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-      },
-      {
-        id: 2,
-        title: 'Tênis VR Caminhada Confortável Detalhes Couro Masculino',
-        price: 139.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg',
-      },
-      {
-        id: 3,
-        title: 'Tênis Adidas Duramo Lite 3.0',
-        price: 219.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg',
-      },
-      {
-        id: 5,
-        title: 'Tênis VR Caminhada Confortável Detalhes Couro Masculino 1',
-        price: 139.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg',
-      },
-      {
-        id: 6,
-        title: 'Tênis Adidas Duramo Lite 2.0',
-        price: 219.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg',
-      },
-      {
-        id: 4,
-        title: 'Tênis de Caminhada Leve Confortável',
-        price: 179.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-      },
-    ],
-  };
-
-  render() {
-    return (
-      <Container>
-        <CartContainer>
-          <List
-            showsVerticalScrollIndicator={false}
-            data={this.state.cart}
-            keyExtractor={c => c.title}
-            renderItem={({ item }) => (
-              <Item>
-                <ProductInfo>
-                  <ProductImage source={{ uri: item.image }} />
-                  <ProductTexts>
-                    <ProductTitle>{item.title}</ProductTitle>
-                    <ProductPrice>{item.price}</ProductPrice>
-                  </ProductTexts>
-                  <TouchableOpacity>
-                    <Icon name="delete-forever" size={24} color="#27ae60" />
-                  </TouchableOpacity>
-                </ProductInfo>
-                <ProductCount>
-                  <CountBox>
-                    <TouchableOpacity>
-                      <AmountButtons>
-                        <Icon
-                          name="remove-circle-outline"
-                          size={20}
-                          color="#27ae60"
-                        />
-                      </AmountButtons>
-                    </TouchableOpacity>
-                    <InputCount editable={false} value="3" />
-                    <TouchableOpacity>
-                      <AmountButtons>
-                        <Icon
-                          name="add-circle-outline"
-                          size={20}
-                          color="#27ae60"
-                        />
-                      </AmountButtons>
-                    </TouchableOpacity>
-                  </CountBox>
-                  <SubtotalPrice>R$539,70</SubtotalPrice>
-                </ProductCount>
-              </Item>
-            )}
-          />
-          <TotalBox>
-            <TotalLabel>TOTAL</TotalLabel>
-            <TotalPrice>R$ 1619,10</TotalPrice>
-          </TotalBox>
-          <SubmitButton>
-            <SubmitButtonText>FINALIZAR PEDIDO</SubmitButtonText>
-          </SubmitButton>
-        </CartContainer>
-      </Container>
-    );
+function Cart({
+  cart,
+  removeFromCart,
+  updateAmountRequest,
+  total,
+  cartAmount,
+}) {
+  function increment(item) {
+    updateAmountRequest(item.id, item.amount + 1);
   }
+
+  function decrement(item) {
+    updateAmountRequest(item.id, item.amount - 1);
+  }
+
+  return (
+    <Container>
+      <CartContainer>
+        {cartAmount > 0 ? (
+          <>
+            <List
+              showsVerticalScrollIndicator={false}
+              data={cart}
+              keyExtractor={c => c.title}
+              renderItem={({ item }) => (
+                <Item>
+                  <ProductInfo>
+                    <ProductImage source={{ uri: item.image }} />
+                    <ProductTexts>
+                      <ProductTitle>{item.title}</ProductTitle>
+                      <ProductPrice>{item.priceFormatted}</ProductPrice>
+                    </ProductTexts>
+                    <TouchableOpacity onPress={() => removeFromCart(item.id)}>
+                      <Icon name="delete-forever" size={24} color="#27ae60" />
+                    </TouchableOpacity>
+                  </ProductInfo>
+                  <ProductCount>
+                    <CountBox>
+                      <TouchableOpacity onPress={() => decrement(item)}>
+                        <AmountButtons>
+                          <Icon
+                            name="remove-circle-outline"
+                            size={24}
+                            color="#27ae60"
+                          />
+                        </AmountButtons>
+                      </TouchableOpacity>
+                      <InputCount
+                        editable={false}
+                        value={String(item.amount)}
+                      />
+                      <TouchableOpacity onPress={() => increment(item)}>
+                        <AmountButtons>
+                          <Icon
+                            name="add-circle-outline"
+                            size={24}
+                            color="#27ae60"
+                          />
+                        </AmountButtons>
+                      </TouchableOpacity>
+                    </CountBox>
+                    <SubtotalPrice>{item.subTotal}</SubtotalPrice>
+                  </ProductCount>
+                </Item>
+              )}
+            />
+            <TotalBox>
+              <TotalLabel>TOTAL</TotalLabel>
+              <TotalPrice>{total}</TotalPrice>
+            </TotalBox>
+            <SubmitButton>
+              <SubmitButtonText>FINALIZAR PEDIDO</SubmitButtonText>
+            </SubmitButton>
+          </>
+        ) : (
+            <EmptyCart>
+              <EmptyCartText>Seu carrinho está vazio :(</EmptyCartText>
+              <Icon name="remove-shopping-cart" size={50} color="#ddd" />
+            </EmptyCart>
+          )}
+      </CartContainer>
+    </Container>
+  );
 }
+
+Cart.propTypes = {
+  cart: PropTypes.arrayOf(Object).isRequired,
+  removeFromCart: PropTypes.func.isRequired,
+  updateAmountRequest: PropTypes.func.isRequired,
+  total: PropTypes.string.isRequired,
+  cartAmount: PropTypes.number.isRequired,
+};
+
+const mapStateToProps = state => ({
+  cart: state.cart.map(p => ({
+    ...p,
+    subTotal: formatPrice(p.price * p.amount),
+  })),
+  total: formatPrice(
+    state.cart.reduce((total, p) => {
+      return total + p.price * p.amount;
+    }, 0)
+  ),
+  cartAmount: state.cart.length,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
