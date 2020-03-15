@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import logo from '../../assets/images/logo.png';
 
@@ -15,7 +15,9 @@ import {
   CartCountText,
 } from './styles';
 
-function Header({ cartAmount, navigation }) {
+export default function Header({ navigation }) {
+  const cartAmount = useSelector(({ cart }) => cart.length);
+
   const handleNavigate = page => {
     navigation.navigate(page);
   };
@@ -44,12 +46,7 @@ function Header({ cartAmount, navigation }) {
 }
 
 Header.propTypes = {
-  cartAmount: PropTypes.number.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func,
   }).isRequired,
 };
-
-export default connect(state => ({
-  cartAmount: state.cart.length,
-}))(Header);
