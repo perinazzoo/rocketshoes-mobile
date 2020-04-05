@@ -4,8 +4,9 @@ Rocketshoes
 <blockquote align="center">
 👟 E-commerce feito em React Native + Redux + Saga. Versão web: https://github.com/perinazzoo/rocketshoes
 </blockquote>
-<br/>
-<br/>
+
+Este projeto utiliza o Gitmoji para padronização de commits, saiba o que cada emoji significa em: https://gitmoji.carloscuesta.me/
+
 <img src="./.github/rocketshoes.png" />
 
 ## :grey_question: Sobre o projeto
@@ -29,9 +30,9 @@ Este é um e-commerce fictício criado durante o desafio 7 do bootcamp GoStack d
 ## :hammer_and_wrench: Iniciando o projeto
 
 1. Clone este repositório usando git clone https://github.com/perinazzoo/rocketshoes-mobile.git
-2. Vá para o diretório usando: cd rocketshoes;
-3. Rode o comando yarn para instalar todas as dependências;
-4. Rode o comando yarn start para iniciar o servidor;
+2. Vá para o diretório usando: `cd rocketshoes`;
+3. Rode o comando `yarn` para instalar todas as dependências;
+4. Rode o comando `yarn start` para iniciar o servidor;
 <hr/>
 <br/>
 <blockquote>Feito com :coffee: e :heart: por Gabriel Perinazzo</blockquote>
