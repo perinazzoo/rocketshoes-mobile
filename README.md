@@ -6,6 +6,7 @@ Rocketshoes
 </blockquote>
 <br/>
 <br/>
+<img src="./.github/rocketshoes.png" />
 
 ## :grey_question: Sobre o projeto
 
