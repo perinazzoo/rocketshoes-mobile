@@ -9,11 +9,11 @@ Este projeto utiliza o Gitmoji para padronização de commits, saiba o que cada 
 
 <img src="./.github/rocketshoes.png" />
 
-## :grey_question: Sobre o projeto
+## :thinking: Sobre o projeto
 
 Este é um e-commerce fictício criado durante o desafio 7 do bootcamp GoStack da Rocketseat.
 
-Nele você pode listar produtos, adicionar produtos ao carrinho, alterar quantidade, remover produto do carrinho e verificar subtotal e total do carrinho.
+Nele você pode listar produtos, adicionar produtos ao carrinho, listar o carrinho, alterar o carrinho, remover produtos do carrinho e verificar o total e subtotal.
 
 ## :computer: Tecnologias utilizadas
 
