@@ -1,5 +1,5 @@
 <h1 align="center">
-Rocketshoes
+Rocketshoes Mobile
 </h1>
 <blockquote align="center">
 👟 E-commerce feito em React Native + Redux + Saga. Versão web: https://github.com/perinazzoo/rocketshoes
@@ -13,7 +13,9 @@ Este projeto utiliza o Gitmoji para padronização de commits, saiba o que cada 
 
 Este é um e-commerce fictício criado durante o desafio 7 do bootcamp GoStack da Rocketseat.
 
-## :computer: Tecnologias usadas
+Nele você pode listar produtos, adicionar produtos ao carrinho, alterar quantidade, remover produto do carrinho e verificar subtotal e total do carrinho.
+
+## :computer: Tecnologias utilizadas
 
 * <a target="_blank" href="https://reactnative.dev/">React Native</a>
 * <a target="_blank" href="https://redux.js.org/">Redux + Saga</a>
@@ -27,12 +29,14 @@ Este é um e-commerce fictício criado durante o desafio 7 do bootcamp GoStack d
 * <a target="_blank" href="https://github.com/eslint/eslint">ESLint</a>
 * <a target="_blank" href="https://github.com/typicode/json-server">Json server</a>
 
-## :hammer_and_wrench: Iniciando o projeto
+## :wrench: Iniciando o projeto
 
-1. Clone este repositório usando git clone https://github.com/perinazzoo/rocketshoes-mobile.git
-2. Vá para o diretório usando: `cd rocketshoes`;
+1. Clone este repositório usando: `git clone https://github.com/perinazzoo/rocketshoes-mobile.git`;
+2. Vá para o diretório usando: `cd rocketshoes-mobile`;
 3. Rode o comando `yarn` para instalar todas as dependências;
-4. Rode o comando `yarn start` para iniciar o servidor;
+4. Rode o comando `npx react-native start` para iniciar o servidor;
+4. Rode o comando `npx react-native run-android` para instalar o App no seu dispositivo/emulador;
+
 <hr/>
 <br/>
 <blockquote>Feito com :coffee: e :heart: por Gabriel Perinazzo</blockquote>
